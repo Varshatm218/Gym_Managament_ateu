@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Diet Plan</title>
+    <link rel="stylesheet" href="diet_plan.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Create Diet Plan</h2>
+        
+        <div class="message success" style="display: none;">Diet plan added successfully!</div>
+        <div class="message error" style="display: none;">Error adding diet plan.</div>
+        
+        <form method="POST" action="submit_diet_plan.php">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Select User</th>
+                        <th>User ID</th>
+                        <th>Username</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="radio" name="user_id" value="101" required></td>
+                        <td>101</td>
+                        <td>JohnDoe</td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" name="user_id" value="102" required></td>
+                        <td>102</td>
+                        <td>JaneDoe</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Diet Plan Details</h3>
+            <label for="diet_type">Diet Type:</label>
+            <select id="diet_type" name="diet_type" required>
+                <option value="">Select Diet Type</option>
+                <option value="Vegetarian">Vegetarian</option>
+                <option value="Keto">Keto</option>
+                <option value="Vegan">Vegan</option>
+                <option value="Paleo">Paleo</option>
+                <option value="Mediterranean">Mediterranean</option>
+            </select>
+
+            <label for="meal_plan">Meal Plan:</label>
+            <textarea id="meal_plan" name="meal_plan" rows="5" required></textarea>
+
+            <label for="recommended_by">Recommended By (Optional):</label>
+            <input type="text" id="recommended_by" name="recommended_by">
+
+            <button type="submit" name="submit_diet_plan">Save Diet Plan</button>
+        </form>
+    </div>
+    <style>
+        /* diet_plan.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+
+.container {
+    width: 80%;
+    margin: 30px auto;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+h2 {
+    color: #333;
+}
+
+.message {
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #1478e2;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #e0e0e0;
+}
+
+input[type="radio"] {
+    transform: scale(1.2);
+}
+
+form {
+    margin-top: 20px;
+    text-align: left;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin: 10px 0 5px;
+}
+
+select, textarea, input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+button {
+    background-color: #ec6e06;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+button:hover {
+    background-color: #0000;
+}
+
+    </style>
+</body>
+</html>
