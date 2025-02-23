@@ -1,7 +1,9 @@
 Gym Management System
 
 📂 Project Structure
+
 📌 Frontend (User Interface)
+
 The frontend contains HTML and CSS files for both user and admin interfaces.
 
 📁 frontend/
