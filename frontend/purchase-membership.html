@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Membership</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: auto;
+        }
+        h2 {
+            color: #333;
+        }
+        label {
+            font-weight: bold;
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .purchase-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            width: 100%;
+        }
+        .purchase-btn:hover {
+            background-color: #218838;
+        }
+        .back-link {
+            display: block;
+            margin-top: 15px;
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        #response-message {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Choose a Membership Plan</h2>
+        
+        <form id="membershipForm">
+            <label for="membership_type">Select Membership:</label>
+            <select id="membership_type" name="membership_type" required>
+                <option value="Monthly">Monthly - $30</option>
+                <option value="Quarterly">Quarterly - $80</option>
+                <option value="Yearly">Yearly - $300</option>
+            </select>
+
+            <button type="submit" class="purchase-btn">Purchase Membership</button>
+        </form>
+
+        <p id="response-message"></p>
+
+        <a href="user-dashboard.html" class="back-link">Back to Dashboard</a>
+    </div>
+
+    <script>
+        document.getElementById("membershipForm").addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent default form submission
+        
+            let membershipType = document.getElementById("membership_type").value;
+        
+            fetch("../backend/user/purchase-membership.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: `membership_type=${encodeURIComponent(membershipType)}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);  // Show message from PHP
+                if (data.success) {
+                    window.location.href = "membership-renewal.html"; // Redirect if successful
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        });
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membership Renewal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css"> 
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: black;
+        }
+        p {
+            font-size: 16px;
+            color: #333;
+        }
+        .renew-btn {
+            background-color: #e67e22;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-top: 10px;
+            display: none;
+        }
+        .renew-btn:hover {
+            background-color: #d35400;
+        }
+        .back-link {
+            display: block;
+            margin-top: 15px;
+            color: #e67e22;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>My Membership</h2>
+
+        <div id="membership-details">
+            <!-- Membership details will be loaded here dynamically -->
+        </div>
+
+        <button id="renew-button" class="renew-btn">Renew Membership</button>
+
+        <a href="user-dashboard.html" class="back-link">Back to Dashboard</a>
+    </div>
+
+    <script>
+        fetch('../backend/user/fetch-membership.php')
+            .then(response => response.json())
+            .then(data => {
+                let detailsDiv = document.getElementById('membership-details');
+                
+                if (data.error) {
+                    detailsDiv.innerHTML = `<p>${data.error}</p>`;
+                } else {
+                    detailsDiv.innerHTML = `
+                        <p><strong>Membership Type:</strong> ${data.membership_type}</p>
+                        <p><strong>Start Date:</strong> ${data.start_date}</p>
+                        <p><strong>End Date:</strong> ${data.end_date}</p>
+                        <p><strong>Payment Status:</strong> ${data.payment_status}</p>
+                    `;
+
+                    if (data.payment_status === 'pending' || new Date(data.end_date) < new Date()) {
+                        document.getElementById('renew-button').style.display = 'block';
+                    }
+                }
+            });
+
+        document.getElementById('renew-button').addEventListener('click', function() {
+            fetch('../backend/user/renew-membership.php', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                    location.reload();
+                });
+        });
+    </script>
+
+</body>
+</html>
